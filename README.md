@@ -3,7 +3,7 @@
 <br>
 <br>At this point, you have a powerful and extremely valuable model...but it's worthless if it is not deployed in production within your organization. 
 <br>
-<br><b>So how do you deploy your predictive model into production?</b>
+<br><h5>So how do you deploy your model into production?</h5>
 <br>
 <br>This repo contains a few of my ideas, strategies, and code for deploying your models in production and at scale:
 <br>
