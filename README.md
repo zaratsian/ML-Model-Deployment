@@ -6,9 +6,9 @@
 <br><h3>So how do you deploy your model into production?</h3>
 <br>This repo contains a few of my ideas, strategies, and code for deploying your models in production and at scale:
 <br>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Deploy as a Batch Process
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Deploy as a Web Service (REST API)
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Deploy online as part of a real-time data stream
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy as a Batch Process
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy as a Web Service (REST API)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy online as part of a real-time data stream
 <br>
 <br><b>References:</b>
 <br>
