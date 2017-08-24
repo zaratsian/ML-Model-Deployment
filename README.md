@@ -1,5 +1,5 @@
+<br>...In Development...
 <br>
-<br>...In Progress...
 <h3>Model Deployment Strategies</h3>
 <br>As Data Scientists, we spend so much time exploring the data, working on transformations, enriching our core data with external sources, all the work in between to prepare our model pipeline, and then eventually training a machine learning model (whether a regression model, classifier, clustering algorithm, etc.)
 <br>
