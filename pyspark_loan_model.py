@@ -10,7 +10,6 @@
 
 '''
 Usage:
-
 /usr/hdp/current/spark2-client/bin/pyspark --master yarn --deploy-mode client --driver-memory 4G --conf "spark.dynamicAllocation.enabled=true" --conf "spark.shuffle.service.enabled=true" --conf "spark.dynamicAllocation.initialExecutors=6"
 
 '''
@@ -55,15 +54,15 @@ gbc = GBTClassifier(featuresCol="features", labelCol="default", predictionCol="p
 pipeline = Pipeline(stages=[si, hot, va, gbc])
 
 model = pipeline.fit(training)
-#model.write().overwrite().save('hdfs:///tmp/spark_gbr_model')
+#model.write().overwrite().save('hdfs:///tmp/spark_model')
 
 predictions = model.transform(testing)
 
 predictions.select(['default','prediction']).sort(col('prediction').desc()).show(25,False)
 
-evaluator = RegressionEvaluator(predictionCol="prediction", labelCol="default")
-rmse = evaluator.evaluate(predictions, {evaluator.metricName: "rmse"})
-r2   = evaluator.evaluate(predictions, {evaluator.metricName: "r2"})
+#evaluator = RegressionEvaluator(predictionCol="prediction", labelCol="default")
+#rmse = evaluator.evaluate(predictions, {evaluator.metricName: "rmse"})
+#r2   = evaluator.evaluate(predictions, {evaluator.metricName: "r2"})
 
 evaluator = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="default")
 evaluator.evaluate(predictions)
