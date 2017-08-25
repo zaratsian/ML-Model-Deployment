@@ -10,6 +10,7 @@
 
 '''
 Usage:
+
 /usr/hdp/current/spark2-client/bin/pyspark --master yarn --deploy-mode client --driver-memory 4G --conf "spark.dynamicAllocation.enabled=true" --conf "spark.shuffle.service.enabled=true" --conf "spark.dynamicAllocation.initialExecutors=6"
 
 '''
@@ -24,13 +25,14 @@ from pyspark.ml.feature import VectorIndexer, VectorAssembler, StringIndexer, On
 from pyspark.ml import Pipeline
 from pyspark.ml.evaluation import RegressionEvaluator, MulticlassClassificationEvaluator, BinaryClassificationEvaluator
 
-rawdata = spark.read.load('hdfs:///tmp/loan_200k.csv', format="csv", header=True, inferSchema=True)
+rawdata = spark.read.load('hdfs:///tmp/loan_200k_new.csv', format="csv", header=True, inferSchema=True)
 
 rawdata.show(10,False)
 print '\nTotal Records: ' + str(rawdata.count()) + '\n'
 for i in rawdata.dtypes: print i
 
 rawdata.groupby(rawdata.purpose).count().show(20,False)
+rawdata.groupby(rawdata.default).count().show(20,False)
 
 #training, testing = rawdata.randomSplit([0.80, 0.20])
 
@@ -54,7 +56,7 @@ gbc = GBTClassifier(featuresCol="features", labelCol="default", predictionCol="p
 pipeline = Pipeline(stages=[si, hot, va, gbc])
 
 model = pipeline.fit(training)
-#model.write().overwrite().save('hdfs:///tmp/spark_model')
+model.write().overwrite().save('hdfs:///tmp/spark_model')
 
 predictions = model.transform(testing)
 
@@ -64,9 +66,12 @@ predictions.select(['default','prediction']).sort(col('prediction').desc()).show
 #rmse = evaluator.evaluate(predictions, {evaluator.metricName: "rmse"})
 #r2   = evaluator.evaluate(predictions, {evaluator.metricName: "r2"})
 
-evaluator = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="default")
-evaluator.evaluate(predictions)
-evaluator.evaluate(predictions, {evaluator.metricName: "areaUnderPR"})
+#evaluator = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="default")
+#evaluator.evaluate(predictions)
+#evaluator.evaluate(predictions, {evaluator.metricName: "areaUnderPR"})
+
+evaluator = MulticlassClassificationEvaluator(predictionCol="prediction", labelCol="default")
+evaluator.evaluate(predictions, {evaluator.metricName: "accuracy"})
 
 
 #ZEND
