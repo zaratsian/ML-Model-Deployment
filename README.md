@@ -5,6 +5,8 @@
 <br>
 <br>At this point, you have a powerful and extremely valuable model...but it's worthless if it is not deployed in production within your organization. 
 <br>
+<br>Just as important, you need deploy your entire model pipeline into production. This takes into consideration all of the data tranformations, enrichments, and predictive models required to take your data from raw to enriched/scored data within you database.
+<br>
 <br><h3>So how do you deploy your model into production?</h3>
 <br>This repo contains a few of my ideas, strategies, and code for deploying your models in production and at scale:
 <br>
