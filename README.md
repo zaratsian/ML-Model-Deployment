@@ -14,5 +14,20 @@
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy as a Web Service (REST API)
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy online as part of a real-time data stream
 <br>
+<br><b>ML Deployment Design - Batch</b>
+<br><img src="images/ml_deployment_batch.png" class="inline"/>
+<br>
+<br><b>ML Deployment Design - Batch</b>
+<br><img src="images/ml_deployment_batch_dsx_hdp_livy.png" class="inline"/>
+<br>
+<br><b>ML Deployment Design - Batch</b>
+<br><img src="images/ml_deployment_batch_dsx_hdp.png" class="inline"/>
+<br>
+<br><b>ML Deployment Design - API Endpoint</b>
+<br><img src="images/ml_deployment_dsx_api.png" class="inline"/>
+<br>
+<br><b>ML Deployment Design - Real-time, Streaming Analytics</b>
+<br><img src="images/ml_deployment_streaming_sam.png" class="inline"/>
+<br>
 <br><b>References:</b>
 <br>
