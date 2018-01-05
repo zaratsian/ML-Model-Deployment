@@ -13,6 +13,7 @@
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy as a Web Service (REST API)
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy within Web App
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy online as part of a real-time data stream
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy/Embed within Devices
 <br>
 <br><h3>Based on these deployments, here are high-level flows for several deployment designs (including open source tech being used): </h3>
 NOTE: A deeper-dive design ref architecture is in progress for each
