@@ -1,11 +1,8 @@
-...In Progress...
-<br>
 <h3>Model Deployment Strategies</h3>
-<br>As Data Scientists, we spend so much time exploring the data, working on transformations, enriching our core data with external sources, all the work in between to prepare our model pipeline, and then eventually training a machine learning model (whether a regression model, classifier, clustering algorithm, etc.)
+While the adoption of machine learning and deep learning techniques continue to grow, many organizations find it difficult to actually deploy these sophisticated models into production. It is common to see data scientists build powerful models, yet these models are not deployed because of the complexity of the technology used or lack of understanding related to the process of pushing these models into production.
 <br>
-<br>At this point, you have a powerful and extremely valuable model...but it's worthless if it is not deployed in production within your organization. 
+<br>As part of this talk, I will review several deployment design patterns for both real-time and batch use cases. I’ll show how these models can be deployed as scalable, distributed deployments within the cloud, scaled across hadoop clusters, as APIs, and deployed within streaming analytics pipelines. I will also touch on topics related to security, end-to-end governance, pitfalls, challenges, and useful tools across a variety of platforms. This presentation will involve demos and sample code for the the deployment design patterns.
 <br>
-<br>Just as important, you need deploy your entire model pipeline into production. This takes into consideration all of the data tranformations, enrichments, and predictive models required to take your data from raw to enriched/scored data within you database.
 <br>This repo contains a few of my ideas, strategies, and code for deploying your models in production and at scale.
 <br>
 <br><h3>So where can machine learning models be deployed?</h3>
