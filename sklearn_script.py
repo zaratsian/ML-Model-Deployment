@@ -1,43 +1,4 @@
 
-
-#####################################################################################
-#
-#   Google CloudML
-#
-#####################################################################################
-
-
-# List CloudML Models
-gcloud ml-engine models list
-
-
-# Set ENV Variables
-PROJECT_ID=$(gcloud config list project --format "value(core.project)")
-BUCKET_NAME=${PROJECT_ID}-mlengine
-REGION=us-east1
-
-
-# Create a GCS Bucket to use with CloudML
-gsutil mb -l $REGION gs://$BUCKET_NAME
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ########################################################################################################
 #
 #   Sklean Modeling
@@ -46,6 +7,7 @@ gsutil mb -l $REGION gs://$BUCKET_NAME
 
 import os,sys,csv,re
 import time,datetime
+import argparse
 
 import pandas as pd
 import numpy as np
@@ -193,6 +155,35 @@ def save_model(model_obj):
     subprocess.check_call(['gsutil', 'cp', '{}.joblib'.format(model_name), 'gs://{}/{}'.format(bucket_name, model_name)], stderr=sys.stdout)
     print('[ INFO ] {}.joblib upload to gs://{}/{}'.format(model_name, bucket_name, model_name))
 
+
+
+'''
+if __name__ == "__main__"
+    
+    # Arguments (used only for testing)
+    args = {"training_data":"", "target_variable"=""}
+    # Arguments
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--training_data",      required=True, type=str, help="Path to local training data")
+    ap.add_argument("--target_variable",    required=True, type=str, help="Name of target / label variable")
+    args = vars(ap.parse_args())
+    
+    # Load Dataset
+    rawdata = load_rawdata(args['training_data'])
+    
+    # Transform / Prep dataframe
+    transformed_df = transform_df(rawdata)
+    
+    # Split into train and test dataframes
+    traindf, testdf = partition_df(transformed_df)
+    
+    # Train Model
+    model_obj = train_model(traindf, testdf)
+    
+    # Save Model
+    save_model(model_obj)
+
+'''
 
 
 #ZEND
