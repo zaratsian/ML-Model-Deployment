@@ -25,7 +25,7 @@ from sklearn.externals import joblib
 
 ########################################################################################################
 #
-#   Input Data
+#   Load Training Data
 #
 ########################################################################################################
 
@@ -104,7 +104,7 @@ def transform_df(rawdata, target_variable_name):
 
 ########################################################################################################
 #
-#   Train and Test DFs
+#   Split Train and Test DFs
 #
 ########################################################################################################
 
@@ -168,8 +168,6 @@ def save_model(model_obj):
     time.sleep(5)
     subprocess.check_call(['gsutil', 'cp', '/tmp/{}.joblib'.format(model_name), 'gs://{}/{}.joblib'.format(bucket_name, model_name)], stderr=sys.stdout)
     print('[ INFO ] /tmp/{}.joblib upload to gs://{}/{}'.format(model_name, bucket_name, model_name))
-
-
 
 if __name__ == "__main__":
     
