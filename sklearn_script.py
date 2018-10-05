@@ -1,46 +1,10 @@
 
-
-#####################################################################################
-#
-#   Google CloudML
-#
-#####################################################################################
-
-
-# List CloudML Models
-gcloud ml-engine models list
-
-
-# Set ENV Variables
-PROJECT_ID=$(gcloud config list project --format "value(core.project)")
-BUCKET_NAME=${PROJECT_ID}-mlengine
-REGION=us-east1
-
-
-# Create a GCS Bucket to use with CloudML
-gsutil mb -l $REGION gs://$BUCKET_NAME
-
-
-
-
-
-
-Specific to GCP, traction with the Red Hat teams has been slow and we could use executive support to get infront of the right teams at Red Hat. We believe that opportunities exist with the product teams.
-
-
-
-There is a $400k GCP opportunity in the POC stage (Global Replicator). Aside from that, traction with the Red Hat teams has been slow and we could use executive support to get infront of the right teams at Red Hat. We believe that opportunities exist with the product teams.
-
-
-
-
-
-
-
-
 ########################################################################################################
 #
 #   Sklean Model
+#
+#   Usage:
+#       python sklearn_model.py --training_data="./data/nfldata2.csv" --target_variable_name="Yards_Gained" --save_to_cloud="y"
 #
 ########################################################################################################
 
@@ -207,15 +171,16 @@ def save_model(model_obj):
 
 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     
     # Arguments (used only for testing)
-    #args = {"training_data":"./data/nfldata2.csv", "target_variable_name":"Yards_Gained"}
+    #args = {"training_data":"./data/nfldata2.csv", "target_variable_name":"Yards_Gained", "save_to_cloud":"y"}
     
     # Arguments
     ap = argparse.ArgumentParser()
-    ap.add_argument("--training_data",          required=True, type=str, help="Path to local training data")
-    ap.add_argument("--target_variable_name",   required=True, type=str, help="Name of target / label variable")
+    ap.add_argument("--training_data",          required=True,  type=str,               help="Path to local training data")
+    ap.add_argument("--target_variable_name",   required=True,  type=str,               help="Name of target / label variable")
+    ap.add_argument("--save_to_cloud",          required=False, type=str, default="n",  help="Save to Google Cloud Storage (y or n)")
     args = vars(ap.parse_args())
     
     # Load Dataset
@@ -234,8 +199,8 @@ if __name__ == "__main__"
     evaluate_regression_model(actual=test_target, predicted=target_predicted)
     
     # Save Model
-    save_model(model_obj)
-
+    if args['save_to_cloud'].lower() == 'y':
+        save_model(model_obj)
 
 
 #ZEND
