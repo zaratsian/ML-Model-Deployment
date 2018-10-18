@@ -2,7 +2,7 @@
 
 ########################################################################################################
 #
-#   Sklean Model
+#   Sklean - Build simple ML Model
 #
 #   Usage:
 #       python sklearn_nfl_model.py --training_data="./data/nfldata2.csv" --target_variable_name="Yards_Gained" --save_to_cloud="y"
@@ -60,7 +60,7 @@ def load_rawdata(training_data):
         return rawdata
     except:
         print('[ ERROR ] Could not find training_data. Check directory path and filename, then try again.')
-        #sys.exit()
+        sys.exit()
 
 ########################################################################################################
 #
