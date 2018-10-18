@@ -15,7 +15,10 @@ import argparse
 
 import pandas as pd
 
-from sklearn.externals import joblib
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    from sklearn.externals import joblib
 
 ########################################################################################################
 #
@@ -132,8 +135,8 @@ if __name__ == "__main__":
     
     # Arguments
     ap = argparse.ArgumentParser()
-    ap.add_argument("--path_to_data",   required=True,  type=str,               help="Path to data")
-    ap.add_argument("--path_to_model",  required=True,  type=str,               help="Path to model (.joblib)")
+    ap.add_argument("--path_to_data",   required=True,  type=str,   help="Path to data")
+    ap.add_argument("--path_to_model",  required=True,  type=str,   help="Path to model (.joblib)")
     args = vars(ap.parse_args())
     
     # Load Dataset
@@ -143,7 +146,8 @@ if __name__ == "__main__":
     transformed_df = transform_df(rawdata, None)
     
     # Score Data
-    scored_df = score_data(path_to_model, df_to_score)
+    scored_df = score_data(args['path_to_model'], transformed_df)
+    scored_df['actual'] = rawdata['Yards_Gained']
     
     # Save Scored DF to local
     save_scored_df(scored_df)
