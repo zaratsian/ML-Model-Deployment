@@ -24,6 +24,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error, median_absolute_error, explained_variance_score
 from sklearn.externals import joblib
 
+import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     from sklearn.ensemble import GradientBoostingRegressor
