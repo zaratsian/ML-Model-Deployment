@@ -5,7 +5,7 @@
 #   Sklean Model
 #
 #   Usage:
-#       python sklearn_model.py --training_data="./data/nfldata2.csv" --target_variable_name="Yards_Gained" --save_to_cloud="y"
+#       python sklearn_nfl_model.py --training_data="./data/nfldata2.csv" --target_variable_name="Yards_Gained" --save_to_cloud="y"
 #
 ########################################################################################################
 
