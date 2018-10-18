@@ -1,4 +1,5 @@
 
+
 ########################################################################################################
 #
 #   Sklean Model
@@ -158,13 +159,19 @@ def evaluate_regression_model(actual, predicted):
     print('[ INFO ] Median Absolute Error:  {}'.format(medianae))
     print('[ INFO ] R2 Score:               {}'.format(r2))
 
-def save_model(model_obj):
+def save_model_locally(model_obj):
     print('[ INFO ] Saving model locally in /tmp...')
     model_name  = 'nfl_model'
-    bucket_name = 'z_mlbucket'
     joblib.dump(model_obj, '/tmp/{}.joblib'.format(model_name))
     print('[ INFO ] Model saved as /tmp/{}.joblib'.format(model_name))
-    print('[ INFO ] Copying to Google Cloud Storage in 5 seconds...')
+
+def save_model_to_cloud(model_obj):
+    model_name  = 'nfl_model'
+    bucket_name = 'z_mlbucket'
+    
+    save_model_locally(model_obj)
+    
+    print('[ INFO ] Copying to Google Cloud Storage (Bucket: {}) in 5 seconds...'.format(bucket_name) )
     time.sleep(5)
     subprocess.check_call(['gsutil', 'cp', '/tmp/{}.joblib'.format(model_name), 'gs://{}/{}.joblib'.format(bucket_name, model_name)], stderr=sys.stdout)
     print('[ INFO ] /tmp/{}.joblib upload to gs://{}/{}'.format(model_name, bucket_name, model_name))
@@ -198,7 +205,10 @@ if __name__ == "__main__":
     
     # Save Model
     if args['save_to_cloud'].lower() == 'y':
-        save_model(model_obj)
+        save_model_to_cloud(model_obj)
+    else:
+        save_model_locally(model_obj)
+
 
 
 #ZEND
