@@ -16,7 +16,7 @@
 ##################################################################################################
 echo "[ INFO ] Setting env variables"
 
-VIRTUAL_ENV_NAME=sklearn_pipeline_basic
+VIRTUAL_ENV_NAME=cloud_ml
 
 BUCKET_NAME=sklearn_pipeline_basic
 REGION=us-east1
@@ -79,7 +79,7 @@ gsutil cp ./model.joblib gs://$BUCKET_NAME/model.joblib
 
 # Create model resource
 echo "[ INFO ] Creating Cloud ML model called $MODEL_NAME"
-gcloud ml-engine models create "$MODEL_NAME"
+gcloud ml-engine models create $MODEL_NAME --regions $REGION
 
 # Create model version on Cloud ML
 echo "[ INFO ] Creating Cloud ML model version ($VERSION_NAME)"
