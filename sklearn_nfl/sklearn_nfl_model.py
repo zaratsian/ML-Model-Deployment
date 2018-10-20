@@ -212,7 +212,7 @@ if __name__ == "__main__":
     evaluate_regression_model(actual=test_target, predicted=target_predicted)
     
     # Save Model
-    if args['save_to_cloud'].lower() != 'n':
+    if args['gcs_bucket_path'].lower() != 'n':
         save_model_to_cloud(model_obj, args['gcs_bucket_path'])
     else:
         save_model_locally(model_obj)
