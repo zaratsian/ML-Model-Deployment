@@ -20,6 +20,8 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     from sklearn.externals import joblib
 
+from tabulate import tabulate
+
 ########################################################################################################
 #
 #   Load Data
@@ -65,7 +67,7 @@ def transform_df(rawdata, target_variable_name=None):
     var_id              = ''
     var_target          = target_variable_name #'Yards_Gained'
     var_date            = 'Date'
-    var_numeric         = ['Drive', 'qtr', 'down', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'FirstDown', 'PosTeamScore', 'DefTeamScore', 'month_day', ]
+    var_numeric         = ['Drive', 'qtr', 'down', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'PosTeamScore', 'DefTeamScore', 'FirstDown'] #, 'month_day']
     var_category        = ['posteam', 'DefensiveTeam','PlayType','PlayType_lag']
     
     transformed_set             = {}
@@ -131,7 +133,7 @@ def save_scored_df(scored_df):
 if __name__ == "__main__":
     
     # Arguments (used only for testing)
-    #args = {"path_to_data":"./data/nfldata2.csv", "path_to_model":"/tmp/nfl_model.joblib"}
+    #args = {"path_to_data":"./data/nfldata2.csv", "path_to_model":"/tmp/model.joblib"}
     
     # Arguments
     ap = argparse.ArgumentParser()
@@ -148,6 +150,9 @@ if __name__ == "__main__":
     # Score Data
     scored_df = score_data(args['path_to_model'], transformed_df)
     scored_df['actual'] = rawdata['Yards_Gained']
+    
+    # Print the Results
+    print(tabulate(scored_df[:50].filter(['Drive','qtr','down','TimeSecs','ydstogo','predicted','actual']), headers='keys', tablefmt='psql'))
     
     # Save Scored DF to local
     save_scored_df(scored_df)
