@@ -44,7 +44,7 @@ def load_rawdata(training_data):
     '''
     try:
         training_data = re.sub('^\.' , os.getcwd() , training_data)
-        print('[ INFO ] Reading in NFL Training data from from {}'.format(training_data))
+        print('[ INFO ] Reading in training data from from {}'.format(training_data))
         time.sleep(3)
         
         header  = ['Date', 'GameID', 'Drive', 'qtr', 'down', 'time', 'TimeUnder', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'FirstDown', 'posteam', 'DefensiveTeam', 'Yards_Gained', 'Touchdown', 'PlayType', 'PassLength', 'PassLocation', 'RunLocation', 'PosTeamScore', 'DefTeamScore', 'month_day', 'PlayType_lag']
@@ -75,8 +75,8 @@ def transform_df(rawdata, target_variable_name):
     var_id              = ''
     var_target          = target_variable_name #'Yards_Gained'
     var_date            = 'Date'
-    var_numeric         = ['Drive', 'qtr', 'down', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'FirstDown', 'PosTeamScore', 'DefTeamScore', 'month_day', ]
-    var_category        = ['posteam', 'DefensiveTeam','PlayType','PlayType_lag']
+    var_numeric         = ['Drive', 'qtr', 'down', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'PosTeamScore', 'DefTeamScore', 'FirstDown'] #, 'month_day']
+    var_category        = ['posteam', 'DefensiveTeam','PlayType_lag','PlayType']
     
     transformed_set             = {}
     transformed_set[var_target] = rawdata[var_target]
@@ -166,20 +166,21 @@ def evaluate_regression_model(actual, predicted):
 
 def save_model_locally(model_obj):
     print('[ INFO ] Saving model locally in /tmp...')
-    model_name  = 'nfl_model'
+    model_name  = 'model'
     joblib.dump(model_obj, '/tmp/{}.joblib'.format(model_name))
     print('[ INFO ] Model saved as /tmp/{}.joblib'.format(model_name))
 
 def save_model_to_cloud(model_obj):
-    model_name  = 'nfl_model'
-    bucket_name = 'z_mlbucket'
+    model_name  = 'model'
+    bucket_name = 'z_mlbucket/nfl_model'
     
     save_model_locally(model_obj)
     
-    print('[ INFO ] Copying to Google Cloud Storage (Bucket: {}) in 5 seconds...'.format(bucket_name) )
+    print('[ INFO ] Copying to Google Cloud Storage ({}) in 5 seconds...'.format(bucket_name, model_name) )
     time.sleep(5)
     subprocess.check_call(['gsutil', 'cp', '/tmp/{}.joblib'.format(model_name), 'gs://{}/{}.joblib'.format(bucket_name, model_name)], stderr=sys.stdout)
-    print('[ INFO ] /tmp/{}.joblib upload to gs://{}/{}'.format(model_name, bucket_name, model_name))
+    print('[ INFO ] /tmp/{}.joblib upload to gs://{}/{}.joblib'.format(model_name, bucket_name, model_name))
+
 
 if __name__ == "__main__":
     
@@ -195,6 +196,8 @@ if __name__ == "__main__":
     
     # Load Dataset
     rawdata = load_rawdata(args['training_data'])
+    #rawdata = rawdata[rawdata['PlayType']=='Run']   # Where PlayType == 'Run'
+    #rawdata = rawdata[rawdata['PlayType']=='Pass']  # Where PlayType == 'Pass'
     
     # Transform / Prep dataframe
     transformed_df = transform_df(rawdata, args['target_variable_name'])
