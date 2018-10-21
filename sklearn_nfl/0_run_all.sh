@@ -16,14 +16,13 @@
 ##################################################################################################
 echo "[ INFO ] Setting env variables"
 
-
+VIRTUAL_ENV_NAME=cloud_ml
 
 BUCKET_NAME=sklearn_nfl_model
 REGION=us-east1
 #PROJECT_ID=$(gcloud config list project --format "value(core.project)")
 
 MODEL_NAME=$BUCKET_NAME
-MODEL_LOCAL_DIR=/tmp/model.joblib
 MODEL_DIR="gs://$BUCKET_NAME/"
 VERSION_NAME="v1"
 FRAMEWORK="SCIKIT_LEARN"
@@ -32,8 +31,34 @@ INPUT_VARIABLES_FILE="input.json"
 
 
 ##################################################################################################
-# Save model.joblib to cloud storage
+# Create model and save to cloud storage
 ##################################################################################################
+
+
+# Create Conda Virtual Env (NOTE: This only needs to be ran one time to get the vir env setup)
+#echo "[ INFO ] Creating conda virtual env ($VIRTUAL_ENV_NAME)"
+#conda create --name $VIRTUAL_ENV_NAME python=3.5 \
+#    numpy=1.14.5 \
+#    pandas=0.23.3 \
+#    scipy=1.1.0 \
+#    scikit-learn=0.19.2
+
+echo "[ INFO ] Activating conda virtual env ($VIRTUAL_ENV_NAME)"
+source activate $VIRTUAL_ENV_NAME
+
+#conda env list
+#conda remove --name ato_sklearn_basic --all
+#source deactivate
+
+
+# Build sklearn model pipeline object
+echo "[ INFO ] Training and saving Sklearn Model"
+python ./sklearn_pipeline.py
+
+
+# Exit Virtual Env
+echo "[ INFO ] Deactivating conda virtual env..."
+source deactivate
 
 
 # Setup Cloud Storage Bucket
@@ -43,7 +68,7 @@ gsutil mb -l $REGION gs://$BUCKET_NAME
 
 # Upload model.joblib to your GCS Bucket
 echo "[ INFO ] Uploading model.joblib to gs://$BUCKET_NAME"
-gsutil cp $MODEL_LOCAL_DIR gs://$BUCKET_NAME/model.joblib
+gsutil cp ./model.joblib gs://$BUCKET_NAME/model.joblib
 
 
 
@@ -100,8 +125,8 @@ gcloud ml-engine predict --model $MODEL_NAME --version \
 ##################################################################################################
 
 #gcloud ml-engine local predict --model-dir=$MODEL_DIR \
-#    --json-instances $INPUT_VARIABLES_FILE \
-#    --framework $FRAMEWORK
+	#    --json-instances $INPUT_VARIABLES_FILE \
+	#    --framework $FRAMEWORK
 
 
 ##################################################################################################
