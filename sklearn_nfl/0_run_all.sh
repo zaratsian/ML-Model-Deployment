@@ -4,6 +4,8 @@
 #
 #   Google Cloud ML Demo - Sklearn NFL Play Prediction
 #
+#   This script will call the Sklearn model training script, create and save the ML model,
+#   load to Google Cloud Storage, deploy to Google CLoud ML, then make a few predictions.
 #
 #   Reference:
 #       Runtime Versions: https://cloud.google.com/ml-engine/docs/tensorflow/runtime-version-list
