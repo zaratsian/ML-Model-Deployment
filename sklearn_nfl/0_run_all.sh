@@ -53,7 +53,7 @@ source activate $VIRTUAL_ENV_NAME
 
 # Build sklearn model pipeline object
 echo "[ INFO ] Training and saving Sklearn Model"
-python ./sklearn_pipeline.py
+python ./sklearn_nfl_model.py
 
 
 # Exit Virtual Env
