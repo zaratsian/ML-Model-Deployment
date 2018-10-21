@@ -5,7 +5,7 @@
 #   Sklean - Batch Scoring example
 #
 #   Usage:
-#       python sklearn_nfl_model_batch.py --path_to_data="./data/nfldata2.csv" --path_to_model="/tmp/nfl_model.joblib"
+#       python sklearn_nfl_model_batch.py --path_to_data="nfldata2.csv" --path_to_model="/tmp/model.joblib"
 #
 ########################################################################################################
 
@@ -14,13 +14,9 @@ import time,datetime
 import argparse
 
 import pandas as pd
-
-import warnings
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-    from sklearn.externals import joblib
-
 from tabulate import tabulate
+
+from sklearn.externals import joblib
 
 ########################################################################################################
 #
@@ -28,18 +24,19 @@ from tabulate import tabulate
 #
 ########################################################################################################
 
-def load_rawdata(dataset_path):
+def load_rawdata(training_data):
     '''
-        USAGE:
-            rawdata = load_rawdata('./data/nfldata2.csv')
+        NOTE:   This function will look for a CSV file that is located in the ../data directory.
+        
+        USAGE:  rawdata = load_rawdata(training_data='nfldata2.csv')
     '''
     try:
-        dataset_path = re.sub('^\.' , os.getcwd() , dataset_path)
-        print('[ INFO ] Reading in data from from {}'.format(dataset_path))
+        training_data = os.path.join( os.getcwd().replace('/sklearn_nfl','/data') , training_data)
+        print('[ INFO ] Reading in training data from from {}'.format(training_data))
         time.sleep(3)
         
         header  = ['Date', 'GameID', 'Drive', 'qtr', 'down', 'time', 'TimeUnder', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'FirstDown', 'posteam', 'DefensiveTeam', 'Yards_Gained', 'Touchdown', 'PlayType', 'PassLength', 'PassLocation', 'RunLocation', 'PosTeamScore', 'DefTeamScore', 'month_day', 'PlayType_lag']
-        rawdata = pd.read_csv(dataset_path , names=header)
+        rawdata = pd.read_csv(training_data , names=header)
         # Quickly explore data structure
         rawdata.head()
         #rawdata.values
@@ -48,10 +45,10 @@ def load_rawdata(dataset_path):
         rawdata.columns
         rawdata.dtypes
         rawdata.describe()
-        print('[ INFO ] Read in data located at {}'.format(dataset_path))
+        print('[ INFO ] Read in training_data located at {}'.format(training_data))
         return rawdata
     except:
-        print('[ ERROR ] Could not find data. Check directory path and filename, then try again.')
+        print('[ ERROR ] Could not find training_data. Check directory path and filename, then try again.')
         sys.exit()
 
 
@@ -133,7 +130,7 @@ def save_scored_df(scored_df):
 if __name__ == "__main__":
     
     # Arguments (used only for testing)
-    #args = {"path_to_data":"./data/nfldata2.csv", "path_to_model":"/tmp/model.joblib"}
+    #args = {"path_to_data":"nfldata2.csv", "path_to_model":"/tmp/model.joblib"}
     
     # Arguments
     ap = argparse.ArgumentParser()
