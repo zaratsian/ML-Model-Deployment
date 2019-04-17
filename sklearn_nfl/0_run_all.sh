@@ -43,7 +43,8 @@ INPUT_VARIABLES_FILE="input.json"
 #    numpy=1.14.5 \
 #    pandas=0.23.3 \
 #    scipy=1.1.0 \
-#    scikit-learn=0.19.2
+#    scikit-learn=0.19.2 \
+#    tabulate=0.8.2
 
 echo "[ INFO ] Activating conda virtual env ($VIRTUAL_ENV_NAME)"
 source activate $VIRTUAL_ENV_NAME
