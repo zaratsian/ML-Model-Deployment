@@ -79,17 +79,24 @@ gcloud ml-engine models list
 ##################################################################################################
 
 # List input variables/data for testing
+echo ""
 echo "[ INFO ] Creating file to send to model for scoring..."
 echo "['Drive', 'qtr', 'down', 'TimeSecs', 'PlayTimeDiff', 'yrdline100', 'ydstogo', 'ydsnet', 'PosTeamScore', 'DefTeamScore', 'FirstDown', 'posteam', 'DefensiveTeam', 'PlayType_lag', 'PlayType', 'year', 'month', 'day']"
+echo ""
 echo "[1, 1, 1, 3600, 0,  10, 10, 18, 0,  0,  1, 24, 18, 0, 1, 2015, 9, 10]" >  input.json
 echo "[1, 1, 1, 11,   12, 13, 13, 45, 13, 13, 1, 24, 18, 0, 1, 2015, 9, 10]" >> input.json
+echo ""
 echo "[ INFO ] Displaying a few records for the model that will be scored:"
+echo ""
 sleep 5
 head input.json
 sleep 5
 
 # Get predictions
+echo ""
 echo "[ INFO ] Scoring data against deployed Sklearn Model"
+echo "[ INFO ] Showing predictions for 'yards gained' for each record"
+echo ""
 gcloud ml-engine predict --model $MODEL_NAME --version \
 	    $VERSION_NAME --json-instances $INPUT_VARIABLES_FILE
 
