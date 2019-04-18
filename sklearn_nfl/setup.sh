@@ -27,7 +27,6 @@ conda create --name $VIRTUAL_ENV_NAME python=3.5 \
 
 
 # List Conda ENVs
-echo "[ INFO ] Listing Conda Virtual Environments..."
 conda env list
 
 
