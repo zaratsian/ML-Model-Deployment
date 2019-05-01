@@ -12,23 +12,7 @@
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy online as part of a real-time data stream
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Deploy/Embed within Devices
 <br>
-<br><h3>Based on these deployments, here are high-level flows for several deployment designs (including open source tech being used): </h3>
-NOTE: A deeper-dive design ref architecture is in progress for each
-<br>
-<br><b>ML Deployment Design - Batch</b>
-<br><img src="images/ml_deployment_batch.png" class="inline"/>
-<br>
-<br><b>ML Deployment Design - Batch</b>
-<br><img src="images/ml_deployment_batch_dsx_hdp_livy.png" class="inline"/>
-<br>
-<br><b>ML Deployment Design - Batch</b>
-<br><img src="images/ml_deployment_batch_dsx_hdp.png" class="inline"/>
-<br>
-<br><b>ML Deployment Design - API Endpoint</b>
-<br><img src="images/ml_deployment_dsx_api.png" class="inline"/>
-<br>
-<br><b>ML Deployment Design - Real-time, Streaming Analytics</b>
-<br><img src="images/ml_deployment_streaming_sam.png" class="inline"/>
-<br>
+
+
 <br><b>References:</b>
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<a href="https://allthingsopen.org/talk/deployment-design-patterns-deploying-machine-learning-and-deep-learning-models-into-production/">Presented these concepts at the AllThingsOpen Conference</a>
